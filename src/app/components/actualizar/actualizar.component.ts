@@ -84,7 +84,6 @@ export class ActualizarComponent implements OnInit {
       'informacion' : new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
       'usuario': new FormControl(this.usuario),
       'ciclos' : new FormControl(this.ciclosSeleccionados),
-      'archivo' :new FormControl(null, [Validators.required]),
     });
   }
 
@@ -139,33 +138,59 @@ export class ActualizarComponent implements OnInit {
       showCancelButton: true
     }).then( resp => {
       if ( resp.value ) {
-        this._ofertaService.updateOferta(this.loginForm, this.id).subscribe(
-          response => {
-            if(response.status == 200){
-              this._ofertaService.updateFile(this.archivo, this.id).subscribe(
-                resp => {
-                  Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'La oferta se ha actualizado correctamente',
-                    showConfirmButton: false,
-                    timer: 3500
-                  })
-                  this.ngOnInit;
-                }
-              );
-            }else{
-              Swal.fire({
-                position: 'top-end',
-                icon: 'warning',
-                title: 'La oferta no se ha actualizado correctamente',
-                showConfirmButton: false,
-                timer: 3500
-              })
-              this.ngOnInit;
+        if(this.archivo.nombreArchivo == null){
+          this._ofertaService.updateOferta(this.loginForm, this.id).subscribe(
+            response => {
+              if(response.status == 200){
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'La oferta se ha actualizado correctamente',
+                  showConfirmButton: false,
+                  timer: 3500
+                })
+                this.ngOnInit;
+              }else{
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'warning',
+                  title: 'La oferta no se ha actualizado correctamente',
+                  showConfirmButton: false,
+                  timer: 3500
+                })
+                this.ngOnInit;
+              }
             }
-          }
-        )
+          )
+        }else{
+          this._ofertaService.updateOferta(this.loginForm, this.id).subscribe(
+            response => {
+              if(response.status == 200){
+                this._ofertaService.updateFile(this.archivo, this.id).subscribe(
+                  resp => {
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'La oferta se ha actualizado correctamente',
+                      showConfirmButton: false,
+                      timer: 3500
+                    })
+                    this.ngOnInit;
+                  }
+                );
+              }else{
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'warning',
+                  title: 'La oferta no se ha actualizado correctamente',
+                  showConfirmButton: false,
+                  timer: 3500
+                })
+                this.ngOnInit;
+              }
+            }
+          )
+        }
       }
 
     });

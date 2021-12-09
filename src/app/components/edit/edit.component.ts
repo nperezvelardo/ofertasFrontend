@@ -125,8 +125,6 @@ export class EditComponent implements OnInit {
       'promocion' : new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(4), Validators.pattern("^[0-9]*$")]),
       'perfil' : new FormControl(this.perfil),
       'ciclos' : new FormControl(this.ciclosSeleccionados),
-      'imagen' :new FormControl(null, [Validators.required]),
-      'pdf' :new FormControl(null, [Validators.required]),
     });
 
   }
@@ -207,13 +205,35 @@ export class EditComponent implements OnInit {
       showConfirmButton: true,
       showCancelButton: true
     }).then( resp => {
-
       if ( resp.value ) {
-        this.usersService.actuser(this.loginForm, this.id).subscribe(
-          response => {
-            if(response.status == 200){
-              this.usersService.updateFile(this.archivo, this.id).subscribe(
-                resp => {
+        if(this.archivo.nombreArchivo == null || this.imagen.nombreArchivo == null){
+          if(this.archivo.nombreArchivo == null && this.imagen.nombreArchivo == null){
+            this.usersService.actuser(this.loginForm, this.id).subscribe(
+              response => {
+                if(response.status == 200){
+                  Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'El usuario se ha actualizado correctamente',
+                    showConfirmButton: false,
+                    timer: 3500
+                  })
+                  this.loginForm.reset(); //reseteamos el formulario 
+                }else{
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'warning',
+                      title: 'El usuario no se ha actualizado correctamente',
+                      showConfirmButton: false,
+                      timer: 3500
+                    })
+                }
+              }
+            );
+          }else if(this.archivo.nombreArchivo == null){
+            this.usersService.actuser(this.loginForm, this.id).subscribe(
+              response => {
+                if(response.status == 200){
                   this.usersService.updateImagen(this.imagen, this.id).subscribe(
                     (respu) => {
                       Swal.fire({
@@ -226,19 +246,78 @@ export class EditComponent implements OnInit {
                       this.loginForm.reset(); //reseteamos el formulario 
                     }
                   );
+                }else{
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'warning',
+                      title: 'El usuario no se ha actualizado correctamente',
+                      showConfirmButton: false,
+                      timer: 3500
+                    })
                 }
-              );
-            }else{
-              Swal.fire({
-                  position: 'top-end',
-                  icon: 'warning',
-                  title: 'El usuario no se ha actualizado correctamente',
-                  showConfirmButton: false,
-                  timer: 3500
-                })
-            }
+              }
+            );
+          }else if(this.imagen.nombreArchivo == null){
+            this.usersService.actuser(this.loginForm, this.id).subscribe(
+              response => {
+                if(response.status == 200){
+                  this.usersService.updateFile(this.archivo, this.id).subscribe(
+                    (respu) => {
+                      Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'El usuario se ha actualizado correctamente',
+                        showConfirmButton: false,
+                        timer: 3500
+                      })
+                      this.loginForm.reset(); //reseteamos el formulario 
+                    }
+                  );
+                }else{
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'warning',
+                      title: 'El usuario no se ha actualizado correctamente',
+                      showConfirmButton: false,
+                      timer: 3500
+                    })
+                }
+              }
+            );
           }
-        )
+        
+        }else{
+          this.usersService.actuser(this.loginForm, this.id).subscribe(
+            response => {
+              if(response.status == 200){
+                this.usersService.updateFile(this.archivo, this.id).subscribe(
+                  resp => {
+                    this.usersService.updateImagen(this.imagen, this.id).subscribe(
+                      (respu) => {
+                        Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'El usuario se ha actualizado correctamente',
+                          showConfirmButton: false,
+                          timer: 3500
+                        })
+                        this.loginForm.reset(); //reseteamos el formulario 
+                      }
+                    );
+                  }
+                );
+              }else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: 'El usuario no se ha actualizado correctamente',
+                    showConfirmButton: false,
+                    timer: 3500
+                  })
+              }
+            }
+          )
+        }
       }
 
     });
