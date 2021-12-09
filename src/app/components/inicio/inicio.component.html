@@ -1,0 +1,121 @@
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <img src="../assets/img/logo.png" class="logo-brand" alt="logo">
+        <h1 class="encabezado">Ofertas De Empleo</h1>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="../assets/img/menu.svg">
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home"><b>Inicio</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#servicios"><b>Servicios</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contacto"><b>Contacto</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#info"><b>¿Donde estamos?</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/login']"><b>Acceso</b></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section id="home">
+    <div class="container">
+        <div class="content-center">
+            <a [routerLink]="['/login']" class="btn btn-secondary mt-4">Explorar ahora <img src="../../../assets/img/arrow-right.svg" class="ml-2"></a>
+        </div>
+    </div>
+</section>
+
+<section id="servicios" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 style="margin-top: 80px;"><b>Cambia tu forma de buscar empleo</b></h2>
+                <p><i class="fas fa-briefcase"></i> Orientación laboral y gestión emocional</p>
+                <p><i class="fas fa-handshake"></i> Búsqueda de empleo en equipo</p>
+                <p><i class="fa fa-industry" aria-hidden="true"></i> Contacto con empresas</p>
+            </div>
+            <div class="col-md-6">
+                <img src="../../../assets/img/ofertaDetalle.PNG" style="max-width:600px; margin-top: 80px; width: 100%;">
+            </div>
+        </div>    
+    </div>
+</section>  
+
+<section id="contacto">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mt-4">
+                <h3><b>Escribanos sus sugerencias y consultas</b></h3>
+                <p><i class="fas fa-address-card"></i> Av. Andalucía S/N 21006 Huelva</p>
+                <p><i class="fas fa-phone"></i> Llámenos ahora: 959 524 177</p>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp: 662032229</p>
+                <p><i class="fas fa-at"></i> admin@ofertasapp.es</p>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Apellidos">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Número Teléfono">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" placeholder="Mensaje"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <a href="#" class="btn btn-primary full-width" style="width:100%;"><i class="fas fa-paper-plane"></i> Enviar contacto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="info">
+    <div class="container">
+        <div class="content-center2">
+            <h2><b>Cambia tu vida, reinventa tu trabajo</b></h2>
+            <p>El trabajo adecuado cambia la vida de una persona, la persona correcta transforma un negocio</p>
+            <p><i class="fas fa-home"></i> No dejes de visitarnos</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3 mt-4">
+            </div>
+            <div class="col-md-6">
+                <div class="info-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3175.395731083591!2d-6.944531448806955!3d37.26204204916581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd11d0202ac6975f%3A0x202c4d07f4aa438c!2sIES%20San%20Sebasti%C3%A1n!5e0!3m2!1ses!2ses!4v1601661233849!5m2!1ses!2ses" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0" align="center">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

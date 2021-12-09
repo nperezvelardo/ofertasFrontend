@@ -1,0 +1,72 @@
+
+<app-navbar></app-navbar>
+
+<div *ngIf="perfil === 'Admin'" class="panel">
+    <div *ngIf="activos != 0" class="alert alert-info text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading">Tienes {{activos}} usuarios por activar</h4>
+        <p>
+            <i class="fa fa-exclamation fa-2x"></i>
+        </p>
+    </div>
+    <div *ngIf="leidos != 0" class="alert alert-info text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading">Tienes {{leidos}} mensajes sin leer</h4>
+        <p>
+            <i class="fa fa-exclamation fa-2x"></i>
+        </p>
+    </div>
+    <div class="card-group">
+        <div class="card border-success">
+            <img class="card-img-top" src="../assets/img/users.png" alt="Card image cap">
+            <div class="card-body">
+                <button type="button" class="btn btn-success btn-lg btn-block" routerLink="/usuarios">Usuarios</button>
+            </div>
+        </div>
+        <div class="card border-success">
+            <img class="card-img-top" src="../assets/img/ofertas2.png" alt="Card image cap">
+            <div class="card-body">
+                <button type="button" class="btn btn-success btn-lg btn-block" routerLink="/ofertas">Ofertas</button>
+            </div>
+        </div>
+        <div class="card border-success">
+            <img class="card-img-top" src="../assets/img/mensajes2.png" alt="Card image cap">
+            <div class="card-body">
+                <button type="button" class="btn btn-success btn-lg btn-block" routerLink="/mensajes">Mensajes</button>
+            </div>
+        </div>
+        <div class="card border-success">
+            <img class="card-img-top" src="../assets/img/logs-actividad2.png" alt="Card image cap">
+            <div class="card-body">
+                <button type="button" class="btn btn-success btn-lg btn-block" routerLink="/logs">Logs</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div *ngIf="perfil === 'User'" class="panel">
+    <div *ngIf="leidos != 0" class="alert alert-info text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading">Tienes {{leidos}} mensajes sin leer</h4>
+        <p>
+            <i class="fa fa-exclamation fa-2x"></i>
+        </p>
+    </div>
+    <div class="card-group">
+        <div class="card border-info">
+            <img class="card-img-top" src="../assets/img/userU.png" height="583px;" alt="Card image cap">
+            <div class="card-body">
+                <button type="button" class="btn btn-info btn-lg btn-block" [routerLink]="['/usuarios/', id]">Mi perfil</button>
+            </div>
+        </div>
+        <div class="card border-info">
+            <img class="card-img-top" src="../assets/img/ofertas.png" height="583px;" alt="Card image cap">
+            <div class="card-body">
+                <button type="button" class="btn btn-info btn-lg btn-block" routerLink="/ofertas">Ofertas</button>
+            </div>
+        </div>
+        <div class="card border-info">
+            <img class="card-img-top" src="../assets/img/mensajes.png" height="583px;" alt="Card image cap">
+            <div class="card-body">
+                <button type="button" class="btn btn-info btn-lg btn-block" routerLink="/mensajes">Mensajes</button>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+
+<div class="container cuerpo text-center centrar">	
+    <h2><strong>Detalle de Mensaje</strong></h2>
+  </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 my-3 pt-3 shadow" style="background-color: #C6E6E5;">
+            <img src="../../../assets/img/sobre.png" class="float-left rounded-circle mr-5">
+            <div>
+                <img src="../../../assets/img/remite.png" class="float-left rounded-circle mr-2" style="width: 40px; height: 40px;">
+                <ng-container *ngFor="let user of nombreUser"><h2 *ngIf="user.id == mensaje.usuario">{{user.nombre}}, {{user.apellido1}} {{user.apellido2}}</h2></ng-container>
+            </div>
+            
+            <h3 style="margin-top: 30px;">{{mensaje.titulo}}</h3>
+            <p style="margin-right: 80px;" class="text-right">
+                {{mensaje.fecha}}
+            </p>
+            <br>
+            <br>
+            <br>
+            <hr>
+            <p style="margin-left: 100px;">
+                {{mensaje.contenido}}
+            </p>
+            <hr>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>

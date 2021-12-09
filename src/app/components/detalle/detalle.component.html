@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+
+<div class="oferta" style="padding: 7% 25%;" id="oferta">
+    <div class="card text-center" style="max-width: 50rem;">
+        <h4 class="card-header text-white bg-dark">
+            Detalle Oferta de Empleo
+        </h4>
+        <div class="card-body">
+            <div class="card text-center">
+                <h5 class="text-info">
+                    {{oferta.empresa}}
+                </h5>
+                <p class="card-text">{{oferta.fecha}}</p>
+                <p class="card-text">{{oferta.informacion}}</p>
+                <p><strong>Ciclos</strong>:
+                    <ng-container *ngFor="let c of nombreCiclo"><span *ngFor="let nombre of c" class="badge badge-info">{{nombre.Nombre}}</span></ng-container>
+                </p>
+                <br>
+                <br>
+                <a class="btn btn-info"><i class="fas fa-check"></i> Inscribir</a>
+                <a (click)="generarPDF()" class="btn btn-light"><i class="fas fa-file-pdf"></i> Imprimir</a>
+                <button type="button" class="btn btn-dark pull-left" data-toggle="modal" data-target="#modal" onclick="openModal()">
+                  <i class="fas fa-file-alt"></i> Ver Pdf
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">{{oferta.empresa}}</h5>
+        </div>
+        <div class="modal-body">
+          <iframe [src]="url" id="modalpdf" type="application/pdf"></iframe>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+</div>

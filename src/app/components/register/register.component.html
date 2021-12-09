@@ -1,0 +1,287 @@
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <img src="../assets/img/logo.png" class="logo-brand" alt="logo">
+        
+        <div class="float-right">
+            <a [routerLink]="['/login']"><b>Login</b></a>
+        </div>
+        
+    </div>
+</nav>
+
+<div class="container2">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center text-white bg-dark">Registro</div>
+                <div class="alert alert-danger" *ngIf="registrado">
+                    {{registrado}}
+                </div>
+
+                <div class="card-body">
+                    <form [formGroup]="loginForm" (ngSubmit)="register()" class="custom-form">
+
+                        <div class="form-group row">
+                            <label for="nif" class="col-md-4 col-form-label text-md-right">NIF</label>
+
+                            <div class="col-md-6">
+                                <input id="nif" type="text" formControlName="nif" class="form-control" name="nif" required>
+                                <div *ngIf="nif.invalid && (nif.dirty || nif.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="nif.errors?.required">
+                                        Nif requerido.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="nif.errors?.minlength">
+                                        Nif debe tener longitud mínima de 9 caracteres
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="nif.errors?.maxlength">
+                                        Nif debe tener longitud máxima de 9 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="usuario" class="col-md-4 col-form-label text-md-right">Nombre Usuario</label>
+
+                            <div class="col-md-6">
+                                <input id="usuario" type="text" formControlName="usuario" class="form-control" name="usuario" required>
+                                <div *ngIf="usuario.invalid && (usuario.dirty || usuario.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="usuario.errors?.required">
+                                        Usuario requerido.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="usuario.errors?.minlength">
+                                        Usuario debe tener longitud mínima de 3 caracteres
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="usuario.errors?.maxlength">
+                                        Usuario debe tener longitud máxima de 20 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="nombre" class="col-md-4 col-form-label text-md-right">Nombre</label>
+
+                            <div class="col-md-6">
+                                <input id="nombre" type="text" formControlName="nombre" class="form-control" name="nombre" required ng-pattern="/^[a-zA-Z]*$/">
+                                <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="nombre.errors?.required">
+                                        Nombre requerido.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="nombre.errors?.minlength">
+                                        Nombre debe tener longitud mínima de 3 caracteres
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="nombre.errors?.maxlength">
+                                        Nombre debe tener longitud máxima de 25 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="apellido1" class="col-md-4 col-form-label text-md-right">Primer Apellido</label>
+
+                            <div class="col-md-6">
+                                <input id="apellido1" type="text" formControlName="apellido1" class="form-control" name="apellido1" required ng-pattern="/^[a-zA-Z]*$/">
+                                <div *ngIf="apellido1.invalid && (apellido1.dirty || apellido1.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="apellido1.errors?.required">
+                                        Primer apellido requerido.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="apellido1.errors?.minlength">
+                                        Primer apellido debe tener longitud mínima de 3 caracteres
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="apellido1.errors?.maxlength">
+                                        Primer apellido debe tener longitud máxima de 40 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="apellido2" class="col-md-4 col-form-label text-md-right">Segundo Apellido</label>
+
+                            <div class="col-md-6">
+                                <input id="apellido2" type="text" formControlName="apellido2" class="form-control" name="apellido2" required ng-pattern="/^[a-zA-Z]*$/">
+                                <div *ngIf="apellido2.invalid && (apellido2.dirty || apellido2.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="apellido2.errors?.required">
+                                        Segundo apellido requerido.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="apellido2.errors?.minlength">
+                                        Segundo apellido debe tener longitud mínima de 3 caracteres
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="apellido2.errors?.maxlength">
+                                        Segundo apellido debe tener longitud máxima de 40 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" formControlName="email" class="form-control" name="email" required >
+                                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="email.errors?.required">
+                                    El email es requerido.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="email.errors?.email">
+                                    Dirección de email incorrecta.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" formControlName="password" class="form-control" name="password" required autocomplete="current-password">
+                                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="password.errors?.required">
+                                    Contraseña es requerida.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="password.errors?.minlength">
+                                    La contraseña debe contener al menos 6 caracteres
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="password.errors?.maxlength">
+                                    La contraseña no debe tener más de 16 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="telefono" class="col-md-4 col-form-label text-md-right">Telefono de Contacto</label>
+
+                            <div class="col-md-6">
+                                <input id="telefono" type="number" formControlName="telefono" class="form-control" name="telefono" required >
+                                <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="telefono.errors?.required">
+                                    Telefono es requerida.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="telefono.errors?.minlength">
+                                    Telefono debe contener al menos 9 caracteres
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="telefono.errors?.maxlength">
+                                        Telefono no debe tener más de 9 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="web" class="col-md-4 col-form-label text-md-right">Página web</label>
+
+                            <div class="col-md-6">
+                                <input id="web" type="text" formControlName="web" class="form-control" name="web">
+                                <div *ngIf="web.invalid && (web.dirty || web.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="web.errors?.maxlength">
+                                    Web no debe tener más de 50 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="blog" class="col-md-4 col-form-label text-md-right">Direccion del Blog</label>
+
+                            <div class="col-md-6">
+                                <input id="blog" type="text" formControlName="blog" class="form-control" name="blog">
+                                <div *ngIf="blog.invalid && (blog.dirty || blog.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="blog.errors?.maxlength">
+                                    Blog no debe tener más de 50 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="github" class="col-md-4 col-form-label text-md-right">Repositorio GitHub</label>
+
+                            <div class="col-md-6">
+                                <input id="github" type="text" formControlName="github" class="form-control" name="github">
+                                <div *ngIf="github.invalid && (github.dirty || github.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="github.errors?.maxlength">
+                                    GitHub no debe tener más de 16 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="promocion" class="col-md-4 col-form-label text-md-right">Promocion</label>
+
+                            <div class="col-md-6">
+                                <input id="promocion" type="number" formControlName="promocion" class="form-control" name="promocion" required>
+                                <div *ngIf="promocion.invalid && (promocion.dirty || promocion.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="promocion.errors?.required">
+                                    Promocion es requerida.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="promocion.errors?.minlength">
+                                    Promocion debe contener al menos 4 caracteres
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="promocion.errors?.maxlength">
+                                    Promocion no debe tener más de 4 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="ciclos" class="col-md-4 col-form-label text-md-right">Ciclos Cursados</label>
+                            <div class="col-md-6">
+                                <select class="form-select" aria-label="Default select example" (change)="onSelect($event.target.value)">
+                                    <ng-container *ngFor="let f of familias">
+                                        <option value={{f.Codigo}}>{{f.Nombre}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-6">
+                                <ng-select
+                                    [items]="ciclos"
+                                    bindLabel="Nombre"
+                                    bindValue = "Codigo"
+                                    placeholder="Seleccione Ciclo"
+                                    appendTo="body"
+                                    [multiple]="true"
+                                    [(ngModel)]="ciclosSeleccionados" formControlName="ciclos" (change)="changeFn($event)">
+                                </ng-select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="fichero" class="col-md-4 col-form-label text-md-right">Curriculum </label>
+                            <div class="col-md-6">
+                                <input type="file" name="file" class="form-control" formControlName="archivo" (change)='fileChangeEvent($event)' accept="application/pdf"/>
+                            </div>
+                        </div>
+                      
+                        <div class="form-group row">
+                            <div class="col-md-4"></div>
+                            <div class="icheck-primary col-md-6">
+                                <input type="checkbox" id="checkboxPrimary" formControlName="empresas">
+                                <label for="checkboxPrimary"> Permitir que las empresas vean el curriculum</label>
+                            </div>
+                        </div>     
+
+                        <div class="form-group row">
+                            <label for="fichero" class="col-md-4 col-form-label text-md-right">Imagen </label>
+                            <div class="col-md-6">
+                                <input type="file" name="file" class="form-control" formControlName="imagen" (change)='subirImagen($event)' accept="image/png, image/gif, image/jpg"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" [disabled] = "!loginForm.valid" class="btn btn-dark btn-round" style="width: 100%;">Registrar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

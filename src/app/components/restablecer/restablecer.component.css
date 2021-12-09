@@ -1,0 +1,14 @@
+.row3{
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.form-control-feedback {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+  }
+  
+  .form-control {
+    padding-left: 30px!important;
+  }

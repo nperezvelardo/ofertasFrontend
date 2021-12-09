@@ -1,0 +1,7 @@
+{
+    "/api/*":{
+        "target" : "https://ofertasapp.es/",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

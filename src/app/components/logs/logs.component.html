@@ -1,0 +1,111 @@
+<app-navbar></app-navbar>
+
+<div class="contenedor">
+    <div class="container centrar">
+        <div class="container cuerpo text-center centrar">	
+          <h2><strong><i class="fas fa-clipboard-list"></i> Registro de Actividad (Logs)</strong></h2>
+        </div>
+        <div *ngIf="!total" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+          <h4 class="alert-heading">No hay registros</h4>
+          <p>
+              <i class="fa fa-exclamation fa-2x"></i>
+          </p>
+        </div>
+
+        <div class="form-group row justify-content-center" style="margin-top: 50px;">
+          <div class="col-md-3">
+              <div class="form-group has-feedback">
+                  <i class="fa fa-search form-control-feedback" aria-hidden="true"></i>
+                  <input
+                      type="text"
+                      class="flexsearch--input"
+                      placeholder="   Buscar Operaciones.."
+                      [(ngModel)]="filterpost"
+                      name="filterpost"
+                      />
+              </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-md-right"><strong>Filtrar: </strong></label>
+          <div class="col-md-5">
+              <select class="form-select col-md-4" (change)="handlePerfilChange($event)">
+                  <option *ngFor="let log of logs | pipePerfilLog" [ngValue]="log.Perfil">
+                      {{log.Perfil}}
+                  </option>
+              </select> 
+          </div>
+          <label class="col-md-2 col-form-label text-md-right"><strong>Logs por página: </strong></label> 
+          <div class="col-md-3">
+              <select class="form-select col-md-4" (change)="handlePageSizeChange($event)">
+                <option *ngFor="let size of pageSizes" [ngValue]="size">
+                    {{ size }}
+                </option>
+              </select>
+          </div>
+        </div>
+        
+        <br>
+        <br>
+          <!--Creamos la tabla que utilizaremos para el listado de las operaciones registradas-->  
+          <table *ngIf="total" class="table" id="logs">
+            <thead class="thead-dark">
+              <tr>
+                <th [class.active]="order === 'Usuario'" (click)="setOrder('Usuario')"
+                  class="mdl-data-table__cell--non-numeric">
+                  Usuario <i class="fas fa-sort"></i>
+                </th>
+                <th [class.active]="order === 'Perfil'" (click)="setOrder('Perfil')"
+                  class="mdl-data-table__cell--non-numeric">
+                  Perfil <i class="fas fa-sort"></i>
+                </th>
+                <th [class.active]="order === 'fecha'" (click)="setOrder('fecha')"
+                  class="mdl-data-table__cell--non-numeric">
+                  Fecha <i class="fas fa-sort"></i>
+                </th>
+                <th [class.active]="order === 'Accion'" (click)="setOrder('Accion')"
+                  class="mdl-data-table__cell--non-numeric">
+                  Tipo de Actividad <i class="fas fa-sort"></i>
+                </th>
+                <th>Operaciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let log of logs | orderBy: order:reverse:'case-insensitive' | filterL: filterpost | filtroLogs: filtroLogs | paginate:{
+                itemsPerPage: pageSize,
+                currentPage: page,
+                totalItems: count
+              }">  
+                <td>{{log.Usuario}}</td>
+                <td>{{log.Perfil}}</td>
+                <td>{{log.fecha}}</td>
+                <td>{{log.Accion}}</td>
+                <td>
+                  <a (click)="deleteLog(log.id)" title="Eliminar"><i class="fas fa-trash fa-1x"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <pagination-controls 
+              responsive="true" 
+              previousLabel="Anterior" 
+              nextLabel="Siguiente" 
+              (pageChange)="onTableDataChange($event)">
+            </pagination-controls>
+          </div>
+          <div class="btn-group btn-group-lg dropup floating-action-button">
+            <button type="button" class="btn btn-fab btn-raised" id="float" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bars" style="color:white"></i></button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <a *ngIf="total" (click)="generarPDF()" class="dropdown-item" title="Descargar PDF"><i class="fas fa-file-pdf fa-2x"></i></a>
+                </li>
+                <li>
+                  <a *ngIf="total" (click)="deleteLogs()" class="dropdown-item" title="Eliminar todos"><i class="fas fa-trash-alt fa-2x"></i></a> 
+                </li>
+            </ul>
+        </div>
+          
+    </div>
+</div>

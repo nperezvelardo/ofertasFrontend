@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12" style="padding: 6%;">
+            <div class="card card-primary card-outline">
+                <div class="card-header text-center text-white bg-dark">
+                    <h3 class="card-title">Nuevo correo electrónico</h3>
+                </div>
+            <!-- /.card-header -->
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <input id="email" type="email" formControlName="email" class="form-control" name="email" required placeholder="Para">
+                                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="email.errors?.required">
+                                    El email es requerido.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="email.errors?.email">
+                                    Dirección de email incorrecta.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <input class="form-control" formControlName="asunto" name="asunto" required placeholder="Asunto">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <ckeditor [editor]="Editor" data="" formControlName="contenido" name="contenido" required></ckeditor>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <div>
+                            <button type="submit" [disabled] = "!loginForm.valid" class="btn btn-dark btn-round"><i class="far fa-envelope"></i> Enviar </button>
+                        </div>
+                    </div>
+                </form>
+            <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div>

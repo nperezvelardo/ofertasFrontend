@@ -1,0 +1,101 @@
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <img src="../assets/img/logo.png" class="logo-brand" alt="logo">
+        
+        <div class="float-right">
+          <a [routerLink]="['/login']"><b>Login</b></a>
+      </div>
+    </div>
+</nav>
+
+
+<div class="row3" style="width: 100%;">
+  <div *ngIf="error" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+    <h4 class="alert-heading">No hay ningun usuario registrado con esas credenciales</h4>
+    <p>
+        <i class="fa fa-exclamation fa-2x"></i>
+    </p>
+  </div>
+  <div *ngIf="activo" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+      <h4 class="alert-heading">El usuario no está activado</h4>
+      <p>
+          <i class="fa fa-exclamation fa-2x"></i>
+      </p>
+  </div>
+  <div *ngIf="distintas" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+    <h4 class="alert-heading">Las contraseñas no coinciden</h4>
+    <p>
+        <i class="fa fa-exclamation fa-2x"></i>
+    </p>
+  </div>
+  <div class="col-md-4 offset-md-4">
+      <div class="card">
+          <div class="card-header text-white bg-dark">
+              <h5 class="card-title text-center text-white bg-dark">Restablecer</h5>
+              <hr>
+          </div>
+          <div class="card-body">
+              <form [formGroup]="loginForm" (ngSubmit)="restablecer()" class="custom-form">  
+                                                            
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback">
+                      <i class="fas fa-at form-control-feedback"></i>
+                      <input type="text" formControlName="email" class="form-control" placeholder="Email">
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback">
+                      <i class="far fa-id-card form-control-feedback"></i>
+                      <input type="text" formControlName="nif" class="form-control" placeholder="Nif">
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback">
+                      <i class="fa fa-user form-control-feedback"></i>
+                      <input type="text" formControlName="usuario" class="form-control" placeholder="Nombre Usuario">
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback">
+                      <i class="fas fa-lock form-control-feedback"></i>
+                      <input type="password" formControlName="password" class="form-control" placeholder="Contraseña" autocomplete="current-password">
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback">
+                      <i class="fas fa-lock form-control-feedback"></i>
+                      <input type="password" formControlName="password2" class="form-control" placeholder="Repetir Contraseña" autocomplete="current-password">
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="update ml-auto mr-auto">
+                    <button type="submit" [disabled] = "!loginForm.valid" class="btn btn-dark btn-round" style="width: 100%;"><i class="fas fa-redo"></i> Restablecer</button>
+                  </div>
+                </div>
+              </form>
+              
+          </div>
+      </div>
+  </div>
+</div>
+

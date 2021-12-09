@@ -1,0 +1,105 @@
+<app-navbar></app-navbar>
+
+<div class="container centrar">
+    <div class="container cuerpo text-center centrar">	
+        <p><h2><strong><i class="fas fa-briefcase"></i> Listado Ofertas</strong></h2>
+    </div>
+
+    <div *ngIf="!total" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading">No hay registros</h4>
+        <p>
+            <i class="fa fa-exclamation fa-2x"></i>
+        </p>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+            <div class="form-group has-feedback">
+                <i class="fa fa-search form-control-feedback" aria-hidden="true"></i>
+                <input
+                    type="text"
+                    class="flexsearch--input"
+                    placeholder="   Buscar Ofertas.."
+                    [(ngModel)]="filterpost"
+                    name="filterpost"
+                    />
+            </div>
+        </div>
+        <label class="col-md-3 col-form-label text-md-right"><strong>Ofertas por página: </strong></label> 
+        <div class="col-md-2">
+            <select class="form-select col-md-6" (change)="handlePageSizeChange($event)">
+                <option *ngFor="let size of pageSizes" [ngValue]="size">
+                    {{ size }}
+                </option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <br>
+    <!--Creamos la tabla que utilizaremos para el listado:-->
+    <!--Si el usuario es administrador mostramos todas sus ofertas, si es usuario solo las de sus ciclos-->  
+    <table *ngIf="total" class="table" id="ofertas">
+        <thead class="thead-dark">
+            <tr>
+                <th [class.active]="order === 'fecha'" (click)="setOrder('fecha')"
+                    class="mdl-data-table__cell--non-numeric">
+                    Fecha Publicación <i class="fas fa-sort"></i>
+                </th>
+                <th [class.active]="order === 'empresa'" (click)="setOrder('empresa')"
+                    class="mdl-data-table__cell--non-numeric">
+                    Empresa <i class="fas fa-sort"></i>
+                </th>
+                <th>Operaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let oferta of ofertas | unique | orderBy: order:reverse:'case-insensitive' | filter: filterpost | paginate:{
+                itemsPerPage: pageSize,
+                currentPage: page,
+                totalItems: count
+            }">
+                <tr>  
+                    <td>{{oferta.fecha}}</td>
+                    <td>{{oferta.empresa}}</td>
+                    <td>
+                        <a [routerLink]="['/ofertas/', oferta.id]" title="Ver Oferta"><i class="fas fa-eye"></i></a> &nbsp;
+                        <a [routerLink]="['/act/', oferta.id]" *ngIf="perfil === 'Admin'" title="Actualizar"><i class="fas fa-edit"></i></a> &nbsp;
+                        <a *ngIf="perfil === 'Admin'" (click)="deleteOferta(oferta.id)" title="Eliminar"><i class="fas fa-trash fa-1x"></i></a>
+                    </td> 
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <pagination-controls 
+            responsive="true" 
+            previousLabel="Anterior" 
+            nextLabel="Siguiente" 
+            (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
+    </div>
+
+    <div class="btn-group btn-group-lg dropup floating-action-button">
+        <button type="button" class="btn btn-fab btn-raised" id="float" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-bars" style="color:white"></i></button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+                <a *ngIf="perfil === 'Admin'" type="button" class="dropdown-item" [routerLink]="['/nueva']" title="Añadir"><i class="fa fa-plus fa-2x"></i></a>
+            </li>
+            <li>
+                <a *ngIf="total" (click)="generarPDF()" class="dropdown-item" title="Descargar PDF"><i class="fas fa-file-pdf fa-2x"></i></a>
+            </li>
+            <li>
+                <a class="dropdown-item" *ngIf="total" href="http://ofertasapp.es/excelO/" title="Descargar Excel"><i class="fas fa-file-excel fa-2x"></i></a>
+            </li>
+            <li>
+                <a type="button" class="dropdown-item" [routerLink]="['/correo']" title="Enviar Correo"><i class="fas fa-envelope-open-text fa-2x"></i></a>
+            </li>
+        </ul>
+    </div>
+      
+    
+</div>
+
+

@@ -1,0 +1,182 @@
+<app-navbar></app-navbar>
+
+<div class="container centrar">
+    <div class="container cuerpo text-center centrar">	
+        <p><h2><strong><i class="far fa-envelope-open"></i> Listado Mensajes</strong></h2>
+    </div>
+    <div *ngIf="!total" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading">No hay registros</h4>
+        <p>
+            <i class="fa fa-exclamation fa-2x"></i>
+        </p>
+    </div>
+
+    <!--Creamos la tabla que utilizaremos para el listado:-->  
+    <div *ngIf="total" class="card card-info card-outline">
+        <div class="card-header">
+          <div class="card-tools">
+            <div class="input-group input-group-sm col-sm-3 float-right">
+              <input type="text" class="form-control" placeholder="Buscar Email" [(ngModel)]="filterEmail"
+              name="filterEmail">
+              <div class="input-group-append">
+                <div class="btn btn-info">
+                  <i class="fas fa-search" style="margin-top:4px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-tools -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+          <div class="table-responsive mailbox-messages">
+            <table class="table table-hover table-striped" id="mensajes">
+              <tbody>
+                <tr>
+                    <th></th>
+                    <th [class.active]="order === 'nombre'" (click)="setOrder('nombre')"
+                        class="mdl-data-table__cell--non-numeric">
+                        Nombre Usuario <i class="fas fa-sort"></i>
+                    </th>
+                    <th [class.active]="order === 'titulo'" (click)="setOrder('titulo')"
+                        class="mdl-data-table__cell--non-numeric">
+                        Titulo Mensaje <i class="fas fa-sort"></i>
+                    </th>
+                    <th [class.active]="order === 'fecha'" (click)="setOrder('fecha')"
+                        class="mdl-data-table__cell--non-numeric">
+                        Fecha <i class="fas fa-sort"></i>
+                    </th>
+                    <th>Leído</th>
+                    <th>Operaciones</th>
+                </tr>
+                <tr *ngFor="let mensaje of mensajesUsuario | orderBy: order:reverse:'case-insensitive' | filterE: filterEmail | paginate:{itemsPerPage:6, currentPage: page} ">
+                    <td class="mailbox-star"><i class="fas fa-star text-warning"></i></td>
+                    <ng-container *ngFor="let user of nombreUser"><td class="mailbox-name" *ngIf="user.id == mensaje.usuario">{{user.nombre}}, {{user.apellido1}} {{user.apellido2}}</td></ng-container>
+                    <td class="mailbox-name">{{mensaje.titulo}}</td>
+                    <td class="mailbox-date">{{mensaje.fecha}}</td>
+                    <td *ngIf="mensaje.leido == 1"><div class="icheck-primary">
+                        <input type="checkbox" value="" id="check1" disabled checked>
+                        <label for="check1"></label>
+                      </div></td>
+                      <td *ngIf="mensaje.leido == 0"><div class="icheck-primary">
+                        <input type="checkbox" value="" id="check1" disabled>
+                        <label for="check1"></label>
+                      </div></td>
+                    <td>
+                        <a [routerLink]="['/mensajes/', mensaje.id]" title="Ver Mensaje"><i class="fas fa-eye"></i></a> &nbsp;
+                        <a (click)="delete(mensaje.id)" title="Eliminar"> <i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- /.table -->
+          </div>
+          <!-- /.mail-box-messages -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer p-0">
+            <div class="mailbox-controls row">
+                <label class="col-md-2 col-form-label text-md-right">Mensajes por página:</label> 
+                <div class="col-md-4">
+                    <select class="form-select col-md-3" (change)="handlePageSizeChange($event)">
+                        <option *ngFor="let size of pageSizes" [ngValue]="size">
+                            {{ size }}
+                        </option>
+                    </select>
+                </div>
+                <!-- /.btn-group -->
+                <div class="col-md-6 float-right">
+                    <div class="d-flex justify-content-center">
+                        <pagination-controls 
+                            responsive="true" 
+                            previousLabel="Anterior" 
+                            nextLabel="Siguiente" 
+                            (pageChange)="onTableDataChange($event)">
+                        </pagination-controls>
+                    </div>
+                  <!-- /.btn-group -->
+                </div>
+                <!-- /.float-right -->
+              </div>
+        </div>
+    </div>
+</div>
+<div class="container centrar">
+    <div class="container cuerpo text-center centrar">	
+        <p><h2><strong>Añadir Mensaje</strong></h2>
+        <hr>
+    </div>
+    <div id="createMensaje" class="container cuerpo text-center centrar">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+            <input type="hidden" [value]="id" formControlName="usuario" > <!--usuario que envia el mensaje-->
+            <div class="form-group row">
+                <label for="destino" class="col-md-4 col-form-label text-md-right">Destino</label>
+                <div class="col-md-6">
+                    <ng-select
+                        [items]="user"
+                        bindLabel="usuario"
+                        bindValue = "id"
+                        placeholder="Seleccione Usuarios"
+                        appendTo="body"
+                        [multiple]="true"
+                        formControlName="destino" (change)="changeFn($event)">
+                    </ng-select>
+                    <div *ngIf="destino.invalid && (destino.dirty || destino.touched)" class="form-text text-muted">
+                        <div class="alert alert-danger" *ngIf="destino.errors?.required">
+                            Destino requerido.
+                        </div>
+                    </div>
+                </div>  
+            </div>
+
+            <div class="form-group row">
+                <label for="titulo" class="col-md-4 col-form-label text-md-right">Titulo Mensaje</label>
+
+                <div class="col-md-6">
+                    <input class="form-control" placeholder="Titulo" formControlName="titulo" name="titulo" required>
+                    <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)" class="form-text text-muted">
+                        <div class="alert alert-danger" *ngIf="titulo.errors?.required">
+                            Titulo requerido.
+                        </div>
+                        <div class="alert alert-danger" *ngIf="titulo.errors?.minlength">
+                            Titulo debe tener longitud mínima de 3 caracteres
+                        </div>
+                        <div class="alert alert-danger" *ngIf="titulo.errors?.maxlength">
+                            Titulo debe tener longitud máxima de 40 caracteres
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <ckeditor [editor]="Editor" data="" formControlName="contenido" name="contenido" required></ckeditor>
+                <div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)" class="form-text text-muted">
+                    <div class="alert alert-danger" *ngIf="contenido.errors?.required">
+                        Contenido requerido.
+                    </div>
+                    <div class="alert alert-danger" *ngIf="contenido.errors?.minlength">
+                        Contenido debe tener longitud mínima de 4 caracteres
+                    </div>
+                    <div class="alert alert-danger" *ngIf="contenido.errors?.maxlength">
+                        Contenido debe tener longitud máxima de 250 caracteres
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" [disabled] = "!loginForm.valid" class="btn btn-dark btn-round"><i class="far fa-envelope"></i> Enviar </button>
+            <br>
+            <br>
+        </form>
+
+        <div class="btn-group btn-group-lg dropup floating-action-button">
+            <button type="button" class="btn btn-fab btn-raised" id="float" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bars" style="color:white"></i></button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <a *ngIf="total" (click)="generarPDF()" class="dropdown-item" title="Descargar PDF"><i class="fas fa-file-pdf fa-2x"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

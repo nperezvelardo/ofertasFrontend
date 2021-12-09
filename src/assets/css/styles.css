@@ -1,0 +1,173 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import "~@ng-select/ng-select/themes/default.theme.css";
+*{
+    margin : 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body{
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+.bgDark { background-color: black; }
+.bgAqua { background-color: #C6E6E5;}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: "Oswald", Arial, sans-serif;
+    font-weight: normal;
+}
+.encabezado{
+    margin-left: 230px;
+    font-size: 50px;
+}
+.logo-brand {
+    max-width: 180px;
+    min-width: 160px;
+}
+.logo-brand2 {
+    max-width: 50px;
+    min-width: 50px;
+}
+.navbar {
+    background-color:#C6E6E5;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+    min-height: 100px;
+}
+.navbar2 {
+    background-color:#51c2d1;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+    min-height: 100px;
+}
+.nav-link { color: black; }
+.nav-link:hover { color: black; }
+
+.navbar-toggler { font-size: 50px; }
+.navbar-toggler:focus { outline: none; }
+
+#navbarSupportedContent2{
+    padding-left:38%;
+}
+
+.separacion{
+    padding-top:3%;
+    padding-bottom:3%;
+}
+.panel{
+    padding: 4%;
+}
+b{
+    margin-left: 4px;
+}
+
+footer{
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background: #C6E6E5;
+}
+footer .content{
+  max-width: 1350px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+footer .content p,a{
+  color: black;
+}
+footer .content .box{
+  width: 33%;
+  transition: all 0.4s ease;
+}
+footer .content .topic{
+  font-size: 22px;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 16px;
+
+}
+footer .content p{
+  text-align: justify;
+}
+footer .content .lower .topic{
+  margin: 24px 0 5px 0;
+}
+footer .content .lower i{
+  padding-right: 16px;
+}
+footer .content .middle{
+  padding-left: 80px;
+}
+footer .content .middle a{
+  line-height: 32px;
+}
+footer .content .media-icons a{
+  font-size: 16px;
+  height: 45px;
+  width: 45px;
+  display: inline-block;
+  text-align: center;
+  line-height: 43px;
+  border-radius: 5px;
+  border: 2px solid #222222;
+  margin: 30px 5px 0 0;
+  transition: all 0.3s ease;
+}
+.content .media-icons a:hover{
+  border-color: white;
+}
+footer .bottom{
+  width: 100%;
+  text-align: right;
+  color: black;
+  padding: 0 40px 5px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+footer a{
+  transition: all 0.3s ease;
+}
+footer a:hover{
+  color: white;
+}
+
+#ic{
+  margin-top:12px;
+}
+#home {
+  background-image: url(../img/principal.jpg);
+  background-size: cover;
+  padding-top: 90px;
+  min-height: 700px;
+  color: white;
+}
+@media (max-width:1100px) {
+  footer .content .middle{
+    padding-left: 50px;
+  }
+}
+@media (max-width:1000px){
+  footer .content .box{
+    width: 50%;
+  }
+  .content .right{
+    margin-top: 40px;
+  }
+}
+@media (max-width:560px){
+  footer{
+    position: relative;
+  }
+  footer .content .box{
+    width: 100%;
+    margin-top: 30px;
+  }
+  footer .content .middle{
+    padding-left: 0;
+  }
+}

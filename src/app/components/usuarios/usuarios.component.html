@@ -1,0 +1,132 @@
+<app-navbar></app-navbar>
+<div class="contenedor">
+    <div class="container centrar">
+        <div class="container cuerpo text-center centrar">	
+            <h2><strong><i class="fas fa-users-cog"></i> Listado Usuarios</strong></h2>
+        </div>
+        <div *ngIf="importado === 'success'" class="alert alert-success text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading">Los usuarios se han importado correctamente</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x"></i>
+            </p>
+        </div>
+        <div *ngIf="importado === 'failed'" class="alert alert-success text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading">Los usuarios no se han importado correctamente</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x"></i>
+            </p>
+        </div>
+
+        <div class="form-group row justify-content-center"  style="margin-top: 50px;">
+            <div class="col-md-3">
+                <div class="form-group has-feedback">
+                    <i class="fa fa-search form-control-feedback" aria-hidden="true"></i>
+                    <input
+                        type="text"
+                        class="flexsearch--input"
+                        placeholder="   Buscar Usuarios.."
+                        [(ngModel)]="filterpost"
+                        name="filterpost"
+                        />
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2 col-form-label text-md-right"><strong>Filtrar: </strong></label>
+            <div class="col-md-4">
+                <select class="form-select col-md-4" (change)="handlePerfilChange($event)">
+                    <option *ngFor="let user of usuarios | pipePerfil" [ngValue]="user.perfil">
+                        {{user.perfil}}
+                    </option>
+                </select> 
+            </div>
+            <label class="col-md-3 col-form-label text-md-right"><strong>Usuarios por página: </strong></label> 
+            <div class="col-md-3 float-right">
+                <select class="form-select col-md-4" (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <br>
+
+
+        <table class="table" id="usuarios">
+            <thead class="thead-dark">
+                <tr>
+                    <th [class.active]="order === 'Nombre'" (click)="setOrder('nombre')"
+                        class="mdl-data-table__cell--non-numeric">
+                        Nombre <i class="fas fa-sort"></i>
+                    </th>
+                    <th [class.active]="order === 'Apellido1'" (click)="setOrder('apellido1')"
+                        class="mdl-data-table__cell--non-numeric">
+                        Primer Apellido <i class="fas fa-sort"></i>
+                    </th>
+                    <th [class.active]="order === 'Apellido2'" (click)="setOrder('apellido2')"
+                        class="mdl-data-table__cell--non-numeric">
+                        Segundo Apellido <i class="fas fa-sort"></i>
+                    </th>
+                    <th [class.active]="order === 'Email'" (click)="setOrder('email')"
+                        class="mdl-data-table__cell--non-numeric">
+                        Email <i class="fas fa-sort"></i>
+                    </th>
+                    <th [class.active]="order === 'perfil'" (click)="setOrder('perfil')"
+                        class="mdl-data-table__cell--non-numeric">
+                        Perfil <i class="fas fa-sort"></i>
+                    </th>
+                    <th>Operaciones</th>
+                    <th>Activar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of usuarios | orderBy: order:reverse:'case-insensitive' | filterU: filterpost | filtroPerfil: filtroperfil | paginate:{
+                    itemsPerPage: pageSize,
+                    currentPage: page,
+                    totalItems: count
+                } "> 
+                    <td>{{user.nombre}}</td>
+                    <td>{{user.apellido1}}</td>
+                    <td>{{user.apellido2}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.perfil}}</td>
+                    <td>
+                        <a [routerLink]="['/usuarios/', user.id]" title="Ver Perfil"><i class="fas fa-eye"></i></a> &nbsp; &nbsp;
+                        <a (click)="deleteUser(user.id)" title="Eliminar"><i class="fas fa-trash fa-1x"></i></a>
+                    </td>
+                    <td *ngIf="user.activo == 0">
+                        <a (click)="activarUser(user.id)" title="Activar"><i class="fas fa-user-times" style="color:red"></i></a>
+                    </td>
+                    <td *ngIf="user.activo == 1">
+                        <a (click)="desactivarUser(user.id)" title="Desactivar"><i class="fas fa-user-check"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            <pagination-controls 
+              responsive="true" 
+              previousLabel="Anterior" 
+              nextLabel="Siguiente" 
+              (pageChange)="onTableDataChange($event)">
+            </pagination-controls>
+        </div>
+
+        <div class="btn-group btn-group-lg dropup floating-action-button">
+            <button type="button" class="btn btn-fab btn-raised" id="float" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bars" style="color:white"></i></button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <a (click)="generarPDF()" class="dropdown-item" title="Descargar PDF"><i class="fas fa-file-pdf fa-2x"></i></a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="http://ofertasapp.es/excelU/" title="Descargar Excel"> <i class="fas fa-file-excel fa-2x"></i></a>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+    
+</div>
+

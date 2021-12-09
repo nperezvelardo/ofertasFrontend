@@ -1,0 +1,81 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12" style="padding: 2%;">
+            <div class="card">
+                <div class="card-header text-center text-white bg-dark">Actualizar Oferta</div>
+
+                <div class="card-body">
+                    <form class="custom-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                        <div class="form-group row">
+                            <label for="empresa" class="col-md-2 col-form-label text-md-right">Empresa</label>
+
+                            <div class="col-md-8">
+                                <input class="form-control" placeholder="Empresa" formControlName="empresa" name="empresa"  [(ngModel)]="oferta.empresa" required>
+                                <div *ngIf="empresa.invalid && (empresa.dirty || empresa.touched)" class="form-text text-muted">
+                                    <div class="alert alert-danger" *ngIf="empresa.errors?.required">
+                                        Empresa requerido.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="empresa.errors?.minlength">
+                                        Empresa debe tener longitud mínima de 3 caracteres
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="empresa.errors?.maxlength">
+                                        Empresa debe tener longitud máxima de 20 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <ckeditor [editor]="Editor" name="informacion" formControlName="informacion"  [(ngModel)]="oferta.informacion" required></ckeditor>
+                            <div *ngIf="informacion.invalid && (informacion.dirty || informacion.touched)" class="form-text text-muted">
+                                <div class="alert alert-danger" *ngIf="informacion.errors?.required">
+                                    Informacion requerido.
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="card-text"><strong>Ciclos</strong>:
+                            <p *ngFor="let c of nombreCiclo" class="badge badge-info"><span *ngFor="let nombre of c">{{nombre.Nombre}}</span>
+                        </p>
+
+                        <div class="form-group row">
+                            <label for="ciclos" class="col-md-2 col-form-label text-md-right">Ciclos Cursados</label>
+                            <div class="col-md-9">
+                                <select class="form-select col-md-4" aria-label="Default select example" (change)="onSelect($event.target.value)">
+                                    <ng-container *ngFor="let f of familias">
+                                        <option value={{f.Codigo}}>{{f.Nombre}}</option>
+                                    </ng-container>
+                                </select>
+                                <ng-select
+                                    [items]="ciclos"
+                                    bindLabel="Nombre"
+                                    bindValue = "Codigo"
+                                    placeholder="Seleccione Ciclo"
+                                    appendTo="body"
+                                    [multiple]="true"
+                                    [(ngModel)]="ciclosSeleccionados" formControlName="ciclos" (change)="changeFn($event)">
+                                </ng-select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="fichero" class="col-md-2 col-form-label text-md-right">Fichero </label>
+                            <div class="col-md-8">
+                                <input type="file" name="file" formControlName="archivo" class="form-control" (change)='fileChangeEvent($event)' accept="application/pdf"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-5 offset-md-5">
+                                <button type="submit" [disabled] = "!loginForm.valid" class="btn btn-dark btn-round"><i class="fas fa-cloud-upload-alt"></i> Actualizar </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
