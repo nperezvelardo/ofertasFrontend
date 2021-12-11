@@ -9,7 +9,7 @@ export class PipePerfilLogPipe implements PipeTransform {
 
   transform(value: any): any{
     if(value!== undefined && value!== null){
-        return _.uniqBy(value, 'perfil');
+        return _.uniqBy(value, 'Perfil');
     }
     return value;
   }
