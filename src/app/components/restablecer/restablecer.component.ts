@@ -38,6 +38,10 @@ export class RestablecerComponent implements OnInit {
     });
   }
 
+  get email(){ return this.loginForm.get('email'); }
+  get nif(){ return this.loginForm.get('nif');}
+  get usuario(){ return this.loginForm.get('usuario')};
+
   /**
    * metodo para restablecer contraseña
    */

@@ -23,7 +23,15 @@
                   <div class="col-md-12">
                     <div class="form-group has-feedback">
                       <i class="fas fa-at form-control-feedback"></i>
-                      <input type="email" id="email" formControlName="email" name="email" class="form-control" placeholder="Email">
+                      <input type="email" id="email" formControlName="email" name="email" class="form-control" placeholder="Email" required>
+                      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="form-text text-muted">
+                        <div class="alert alert-danger" *ngIf="email.errors?.required">
+                        El email es requerido.
+                        </div>
+                        <div class="alert alert-danger" *ngIf="email.errors?.email">
+                        Dirección de email incorrecta.
+                        </div>
+                      </div>
                     </div>
                     
                   </div>
@@ -34,6 +42,17 @@
                     <div class="form-group has-feedback">
                       <i class="far fa-id-card form-control-feedback"></i>
                       <input type="text" formControlName="nif" class="form-control" placeholder="Nif">
+                      <div *ngIf="nif.invalid && (nif.dirty || nif.touched)" class="form-text text-muted">
+                        <div class="alert alert-danger" *ngIf="nif.errors?.required">
+                            Nif requerido.
+                        </div>
+                        <div class="alert alert-danger" *ngIf="nif.errors?.minlength">
+                            Nif debe tener longitud mínima de 9 caracteres
+                        </div>
+                        <div class="alert alert-danger" *ngIf="nif.errors?.maxlength">
+                            Nif debe tener longitud máxima de 9 caracteres
+                        </div>
+                      </div>
                     </div>
                     
                   </div>
@@ -44,8 +63,18 @@
                     <div class="form-group has-feedback">
                       <i class="fa fa-user form-control-feedback"></i>
                       <input type="text" formControlName="usuario" class="form-control" placeholder="Nombre Usuario">
+                      <div *ngIf="usuario.invalid && (usuario.dirty || usuario.touched)" class="form-text text-muted">
+                        <div class="alert alert-danger" *ngIf="usuario.errors?.required">
+                            Usuario requerido.
+                        </div>
+                        <div class="alert alert-danger" *ngIf="usuario.errors?.minlength">
+                            Usuario debe tener longitud mínima de 3 caracteres
+                        </div>
+                        <div class="alert alert-danger" *ngIf="usuario.errors?.maxlength">
+                            Usuario debe tener longitud máxima de 20 caracteres
+                        </div>
+                      </div>
                     </div>
-                    
                   </div>
                 </div>
                 
