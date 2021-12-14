@@ -156,7 +156,11 @@ export class LogsComponent implements OnInit {
    * @param event 
    */
   handlePerfilChange(event): void{
-    this.filtroLogs = event.target.value;
+    if(event.target.value == "todos"){
+      this.filtroLogs = '';
+    }else{
+      this.filtroLogs = event.target.value;
+    }
   }
 
   /**

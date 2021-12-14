@@ -49,22 +49,24 @@ export class RestablecerComponent implements OnInit {
       showCancelButton: true
     }).then( resp => {
       if ( resp.value ) {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'La contraseña ha sido actualizada',
-          showConfirmButton: false,
-          timer: 3500
-        })
-        this.loginForm.reset(); //reseteamos el formulario
-      }else{
-        Swal.fire({
-          position: 'top-end',
-          icon: 'warning',
-          title: 'La contraseña no se ha actualizado',
-          showConfirmButton: false,
-          timer: 3500
-        })
+        if(this.loginForm.get('nif').value == '12345678C'){
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'La contraseña ha sido actualizada',
+            showConfirmButton: false,
+            timer: 3500
+          })
+          this.loginForm.reset(); //reseteamos el formulario
+        }else{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Los datos introducidos no son correctos',
+            showConfirmButton: false,
+            timer: 3500
+          })
+        }
       }
     });
   }

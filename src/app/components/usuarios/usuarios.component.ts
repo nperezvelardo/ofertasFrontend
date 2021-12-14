@@ -193,7 +193,11 @@ export class UsuariosComponent implements OnInit {
    * @param event 
    */
   handlePerfilChange(event): void{
-    this.filtroperfil = event.target.value;
+    if(event.target.value == "todos"){
+      this.filtroperfil = '';
+    }else{
+      this.filtroperfil = event.target.value;
+    }
   }
 
   /**

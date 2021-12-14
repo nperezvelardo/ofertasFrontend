@@ -4,18 +4,6 @@
         <div class="container cuerpo text-center centrar">	
             <h2><strong><i class="fas fa-users-cog"></i> Listado Usuarios</strong></h2>
         </div>
-        <div *ngIf="importado === 'success'" class="alert alert-success text-center mt-3 animated fadeIn faster">
-            <h4 class="alert-heading">Los usuarios se han importado correctamente</h4>
-            <p>
-                <i class="fa fa-exclamation fa-2x"></i>
-            </p>
-        </div>
-        <div *ngIf="importado === 'failed'" class="alert alert-success text-center mt-3 animated fadeIn faster">
-            <h4 class="alert-heading">Los usuarios no se han importado correctamente</h4>
-            <p>
-                <i class="fa fa-exclamation fa-2x"></i>
-            </p>
-        </div>
 
         <div class="form-group row justify-content-center"  style="margin-top: 50px;">
             <div class="col-md-3">
@@ -35,6 +23,7 @@
             <label class="col-md-2 col-form-label text-md-right"><strong>Filtrar: </strong></label>
             <div class="col-md-4">
                 <select class="form-select col-md-4" (change)="handlePerfilChange($event)">
+                    <option value="todos">Todos</option>
                     <option *ngFor="let user of usuarios | pipePerfil" [ngValue]="user.perfil">
                         {{user.perfil}}
                     </option>
